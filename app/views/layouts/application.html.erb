@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Coderchat</title>
+	<%= csrf_meta_tags %>
+
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+	<nav class="navbar navbar-blue bg-faded">
+		<%= link_to "CoderChat", root_path, class: "navbar-brand" %>
+		<ul class="nav navbar-nav">
+			<% if current_user %>
+			<li class="nav-item">
+				<%= link_to "Log out #{current_user.email}", logout_path, method: :delete, class: "nav-link" %>
+			</li>
+			<% else %>
+			<li class="nav-item active"><%= link_to "Sign up", new_user_path, class: "nav-link" %></li>			
+			<li class="nav-item"><%= link_to "Log in", new_session_path, class: "nav-link" %></li>
+			<% end %>
+		</ul>
+		<form class="form-inline pull-xs-right">
+			<input class="form-control" type="text" placeholder="Search">
+			<button class="btn btn-success-outline" type="submit">Search</button>
+		</form>
+	</nav>
+	
+	<% unless flash.empty? %>
+	<% flash.each do |key, value| %>
+	<div class="alert alert-warning"><%= value %></div>
+	<% end %>
+	<% end %>
+	<div class="container">
+		<%= yield %>
+	</div>
+</body>
+</html>
