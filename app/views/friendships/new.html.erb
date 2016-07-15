@@ -1,0 +1,22 @@
+
+<div class="container">
+	Make new friends
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="list-group">
+				<% User.stranger_list(@current_user).each do |u| %>	
+				<div class="list-group-item">
+					<% unless @current_user.is_friend(u.id) %>
+					<%= link_to "Add friend", friendships_path( id: u, name: u.name), method: :post, class: "label label-primary	 label-pill pull-xs-right" %>
+
+					<% end %>
+					<%= u.name %> ( <%= u.email%>)
+					
+				</div>
+				<% end %>			
+			</div>		
+		</div>
+
+	</div>
+</div>

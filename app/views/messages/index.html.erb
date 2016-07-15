@@ -1,0 +1,39 @@
+
+<div class="row">
+	<div class="col-sm-4">
+		<strong> Chat rooms </strong>
+	</div>
+	<div class="col-sm-4"><strong>Incoming messages</strong>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="list-group">
+
+			<% @chatrooms.each do |cr|%>
+			<div class="list-group-item">
+				<span class="label label-default label-pill pull-xs-right">0</span>
+				<%= cr.name %>
+			</div>
+			<% end %>
+		</div>
+
+	</div>
+	<div class="col-sm-8">
+		<div class="list-group">
+
+			<% @messages.each do |m|%>
+			<div class="list-group-item ">
+				<% if m.status == "Read" %>
+				<span class=" pull-xs-right"><em><%=distance_of_time_in_words_to_now m.created_at%> ago</em></span>
+				<%= m.full_content %>
+				<% else %>
+
+				<b><span class="pull-xs-right"><em><%=distance_of_time_in_words_to_now m.created_at%> ago</em></span>
+					<%= m.full_content %></b>
+					<% end %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>

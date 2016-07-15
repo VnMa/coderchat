@@ -1,0 +1,11 @@
+<%= form_tag '/messages' do %>
+<%= text_area_tag :message_content, nil, placeholder: "Say something to your friend", class: "form-control" %>
+<div class="row">	
+	<div class="col-sm-6">
+	<%= select_tag "friend", options_from_collection_for_select(@current_user.friends, "id", "name"), prompt: "Select a friend" %>		
+	<%= submit_tag "Send message" %>
+	</div>
+
+</div>
+
+<% end %>

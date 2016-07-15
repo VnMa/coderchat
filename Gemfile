@@ -37,7 +37,9 @@ gem 'rails-assets-tether', '>= 1.1.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails', '~> 3.4'
 end
+
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
@@ -50,3 +52,8 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+# %w[rspec-core rspec-expectations rspec-mocks rspec-support].each do |lib|
+#   gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+# end
