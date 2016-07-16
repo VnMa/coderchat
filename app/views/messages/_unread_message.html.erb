@@ -1,0 +1,14 @@
+<% if u_message %>
+<div class="" id="unread_message<%= u_message.id %>">
+	<% unless u_message.is_read? %>
+	<%= link_to "View", u_message , method: :get, remote:true,  class: "label label-primary	 label-pill pull-xs-right"  %>
+	<em><b> <%= u_message.sender_name %> </b> has sent you a message at <%= time_ago_in_words u_message.created_at %> ago   -  <%= received_time u_message %>
+	</em>
+	<% else %>
+	<span class="label label-default">
+		Read <b><%= u_message.sender_name %></b> message <em> <%= time_ago_in_words u_message.updated_at %> ago </em>
+	</span>
+	<% end %>
+</div>
+
+<%end %>

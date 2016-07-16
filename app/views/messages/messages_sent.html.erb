@@ -1,0 +1,12 @@
+<h2>Sent messages list</h2>
+
+<div class="container">
+	<% @messages.each do |m| %>
+	<div class="row">
+		<span class= " pull-xs-right"> <em> <%= time_ago_in_words m.created_at %> ago </em> | <span class="label  label-pill <%= unless m.is_read? then "label-default" else "label-info" end %>"><%= received_time m%></span> 
+
+		</span>
+		Sent a message to <%= m.chatroom.get_recipient_names(@current_user.id) %>
+	</div>	
+	<% end %>
+</div>

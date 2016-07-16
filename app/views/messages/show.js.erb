@@ -1,0 +1,8 @@
+<% if @message.errors.any? || @message.errors.any? %>
+alert("not valid.")
+<% else %>
+$("#message_content").html("<%= j (render @message) %>");
+$("#unread_message<%= @message.id %>").html("<%= j (render 'unread_message', u_message: @message) %>");
+
+console.log("Calling AJAX sucessfully. Yay!!!")
+<% end %>
