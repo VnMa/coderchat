@@ -10,4 +10,14 @@ module ApplicationHelper
 			end
 		end.join.html_safe
 	end
+
+
+	def received_time(message)
+		if (message.status.nil? or message.status == "Unread")
+			return "Unread"
+		else
+			return " read #{time_ago_in_words message.updated_at} ago"
+		end
+	end
+
 end

@@ -8,32 +8,16 @@
 </div>
 <div class="row">
 	<div class="col-sm-4">
-		<div class="list-group">
-
-			<% @chatrooms.each do |cr|%>
-			<div class="list-group-item">
-				<span class="label label-default label-pill pull-xs-right">0</span>
-				<%= cr.name %>
+		<div class="list-group" id="whatshot">
+			<% @unread_messages.each do |m| %>
+			<div class="list-group-item"><%= render 'unread_message', u_message: m.first %>				
 			</div>
 			<% end %>
 		</div>
 
 	</div>
 	<div class="col-sm-8">
-		<div class="list-group">
-
-			<% @messages.each do |m|%>
-			<div class="list-group-item ">
-				<% if m.status == "Read" %>
-				<span class=" pull-xs-right"><em><%=distance_of_time_in_words_to_now m.created_at%> ago</em></span>
-				<%= m.full_content %>
-				<% else %>
-
-				<b><span class="pull-xs-right"><em><%=distance_of_time_in_words_to_now m.created_at%> ago</em></span>
-					<%= m.full_content %></b>
-					<% end %>
-				</div>
-				<% end %>
-			</div>
+		<div class="list-group" id="message_content">
+			abcd
 		</div>
 	</div>

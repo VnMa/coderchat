@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   get '/messages_sent' => "messages#messages_sent"
   resources :users
   resources :friendships, only: [:new, :create, :edit]
-  resources :messages, only: [:index, :new, :create]
+  resources :messages, only: [:index, :new, :create, :show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

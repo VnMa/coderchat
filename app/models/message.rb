@@ -1,9 +1,29 @@
 class Message < ApplicationRecord
-	belongs_to :user
-	belongs_to :chatroom
+	belongs_to :user, inverse_of: :messages
+	belongs_to :chatroom, inverse_of: :messages
 
 	def full_content
 		return "#{user_id}: #{content}"
+	end
+
+	def is_sent_to(somebody)
+		chatroom.get_recipients(user.id).where('user_id = ?', somebody).exists?
+	end
+
+	def sender_name
+		user.name
+	end
+
+	def read_it
+		self.update(status: "Read", updated_at: Time.now)
+	end
+
+	def unread
+		self.update(status: "Unread")
+	end
+
+	def is_read?
+		return  ( not status.nil? and (status != "Unread"))
 	end
 
 	# def format(s)

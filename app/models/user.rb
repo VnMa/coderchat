@@ -6,7 +6,7 @@ class User < ApplicationRecord
 	has_many :chatroom_users
 	has_many :chatrooms, :through => :chatroom_users
 
-	has_many :messages
+	has_many :messages, inverse_of: :user
 
 	has_many :friendships
 	has_many :friends, :through => :friendships
@@ -22,10 +22,22 @@ class User < ApplicationRecord
   #   @chatroom = chatroom_users.find_or_create_chat_room(id, friend.id)
   # end
 
+  def latest_sent_messages
+    messages.order(Message.arel_table['created_at'].desc)
+  end
+
+  def messages_sent_to_self
+    chatrooms.map{|m| m.messages_sent_to(self.id)}
+  end
+
   def send_message_to(message_content, friend_id)
     @chatroom = Chatroom.find_or_create_room(self.id,friend_id)
     @chatroom.create_message(self.id, message_content)
   end
+
+  # def self_messages
+  #   messages.where(user_id: self.id)
+  # end
 
   def is_friend(user_id)
     return self.friends.exists?(user_id)

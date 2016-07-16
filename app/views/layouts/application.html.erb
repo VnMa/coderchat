@@ -25,9 +25,9 @@
 
 		<form class="form-inline pull-xs-right">
 			<% if current_user %>
-			<%= link_to "New message", new_message_path, class: "btn btn-secondary" %>
-			<%= link_to "Sent message", messages_sent_path, class: "btn btn-secondary" %>
-			<%= link_to "Add friends", new_friendship_path, class: "btn btn-secondary" %>
+			<%= link_to "New message", new_message_path, class: "btn btn-secondary", id: "new_message_path" %>
+			<%= link_to "View sent messages", messages_sent_path, class: "btn btn-secondary",id: "messages_sent_path"  %>
+			<%= link_to "Add friends", new_friendship_path, class: "btn btn-secondary",id: "messages_sent_path"  %>
 			<% end %>
 		</form>
 	</nav>

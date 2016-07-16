@@ -12,7 +12,7 @@ class FriendshipsController < ApplicationController
 	def create
 		@current_user = current_user
 		fs = Friendship.new(user_id: @current_user.id, friend_id: params[:id], authorized: true)
-		byebug
+		
 		if fs.valid?
 			flash[:notice] = "Congratualtion #{@current_user.email}, user \"#{params[:name]}\" is now your friend!"
 			fs.save
