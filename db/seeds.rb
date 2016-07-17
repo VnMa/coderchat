@@ -7,10 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Message.delete_all
-User.delete_all
 ChatroomUser.delete_all
-Chatroom.delete_all
 Friendship.delete_all
+Chatroom.delete_all
+User.delete_all
+
 %w{albert bella carlos david edgar fun gerard henry}.each_with_index do |name, index|
 	User.create!(:id => index, :name => name, :email => "#{name}@email", :password => name)
 end
