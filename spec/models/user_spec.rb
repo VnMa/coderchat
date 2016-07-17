@@ -6,6 +6,8 @@ RSpec.describe User, type: :model do
 		name="User" ;  	@user = User.create!(:id => 0, :name => name, :email => "#{name}@email", :password => name)
 		name="Friend" ;   	@friend=User.create!(:id => 1, :name => name, :email => "#{name}@email", :password => name)
 		name="Stranger" ;   	@stranger=User.create!(:id => 2, :name => name, :email => "#{name}@email", :password => name)
+		name="Gerard" ;   	@gerard=User.create!(:id => 3, :name => name, :email => "#{name}@email", :password => name)
+
 
 		@room1 = Chatroom.create!(:id => 1, :name => 'first chat room')
 		@chatroom_user1=ChatroomUser.create!(:chatroom_id => 1, :user_id => 0)
@@ -32,9 +34,13 @@ RSpec.describe User, type: :model do
 		expect(cr.class.name).to eq('Chatroom')
 	end
 
-	it "can send message " do
-		@user.send_message_to("Hello friend, I'm User ", @friend.id);
+	it "can send message multiple friends" do
+		friendA, friendB = "1", "3"
+		@user.send_message_to("Hello friend, I'm User ", [friendA, friendB ]);
 		
-		# expect(Message.count).to be > 0
+		c1 = @user.messages_sent_to_self.count
+		c2 = User.find(friendA).messages_sent_to_self.count
+		c3 = User.find(friendB).messages_sent_to_self.count
+		expect([c1,c2,c3]).to eq [1,1,1]
 	end
 end

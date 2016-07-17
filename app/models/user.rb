@@ -30,13 +30,20 @@ class User < ApplicationRecord
     chatrooms.map{|m| m.messages_sent_to(self.id)}
   end
 
-  def send_message_to(message_content, friend_id)
-    @chatroom = Chatroom.find_or_create_room(self.id,friend_id)
-    @chatroom.create_message(self.id, message_content)
+  def send_message_to(message_content, friend_list_id)
+    friend_list_id.each do |f|
+      @chatroom = Chatroom.find_or_create_room(self.id,f)
+      @chatroom.create_message(self.id, message_content)
+    end
   end
 
-  # def self_messages
-  #   messages.where(user_id: self.id)
+  def friend_names(friend_id_list)
+    friends.find(friend_id_list).map{|f| f.name}
+  end
+
+  # def send_message_to(message_content, friend_id)
+  #   @chatroom = Chatroom.find_or_create_room(self.id,friend_id)
+  #   @chatroom.create_message(self.id, message_content)
   # end
 
   def is_friend(user_id)
@@ -62,4 +69,18 @@ class User < ApplicationRecord
   def self.stranger_list(user)
     return User.where("id NOT IN (?)", user.friend_and_self_ids)
   end
+
+  def make_friend_with(stranger_id)
+    fs1 = Friendship.new(user_id: self.id, friend_id: stranger_id, authorized: true)
+    fs2 = Friendship.new(user_id: stranger_id, friend_id: self.id, authorized: true)
+    
+    if fs1.valid? and fs2.valid? then
+      fs1.save
+      fs2.save
+      return true
+    else
+      return false
+    end
+  end
+
 end

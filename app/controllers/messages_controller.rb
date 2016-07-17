@@ -19,10 +19,11 @@ class MessagesController < ApplicationController
 	def create
 		@current_user = current_user
 		if params[:friend]
-			@friend_id = params[:friend]
+			@friend_list_id = params[:friend]
+			byebug
 			@message_content = params[:message_content]
-			@current_user.send_message_to(@message_content, @friend_id)
-			flash[:notice] = "Hi #{@current_user.name}, your message is sent"
+			@current_user.send_message_to(@message_content, @friend_list_id)
+			flash[:notice] = "Hi #{@current_user.name}, your message is sent to #{@current_user.friend_names(@friend_list_id)}"
 			render 'new'
 		else
 			raise 'Friend id not found. Please recheck'
