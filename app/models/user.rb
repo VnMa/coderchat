@@ -27,7 +27,7 @@ class User < ApplicationRecord
   end
 
   def messages_sent_to_self
-    chatrooms.map{|m| m.messages_sent_to(self.id)}
+    chatrooms.map{|m| m.messages_sent_to(self.id)}.reject{|f| f.empty?}
   end
 
   def send_message_to(message_content, friend_list_id)

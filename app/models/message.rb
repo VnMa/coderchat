@@ -1,6 +1,10 @@
+require 'carrierwave/orm/activerecord'
+
 class Message < ApplicationRecord
 	belongs_to :user, inverse_of: :messages
 	belongs_to :chatroom, inverse_of: :messages
+	mount_uploader :img_url, AvatarUploader
+
 
 	def full_content
 		return "#{user_id}: #{content}"
